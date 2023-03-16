@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckm34imjwqkc"]
+
+[ext_resource type="Script" path="res://Scripts/Paddle.gd" id="1_87hk4"]
+[ext_resource type="Texture2D" uid="uid://c7c10nuy4ga2w" path="res://Textures/breakout_pieces.png" id="1_svvgv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24wo7"]
+size = Vector2(64, 16)
+
+[node name="Paddle" type="Node2D"]
+script = ExtResource("1_87hk4")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -8.0
+offset_right = 32.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_svvgv")
+region_rect = Rect2(48, 72, 64, 16)
+patch_margin_left = 25
+patch_margin_right = 26
+
+[node name="PaddleArea" type="Area2D" parent="."]
+
+[node name="PaddleCollider" type="CollisionShape2D" parent="PaddleArea"]
+shape = SubResource("RectangleShape2D_24wo7")
+
+[connection signal="area_entered" from="PaddleArea" to="." method="_on_paddle_area_area_entered"]

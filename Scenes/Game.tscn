@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://biy6tv0kcd0g7"]
+
+[ext_resource type="Script" path="res://Scripts/Game.gd" id="1_tg4h8"]
+[ext_resource type="PackedScene" uid="uid://b8yb66pvdmgpi" path="res://Scenes/Level/Level1.tscn" id="2_3e82o"]
+[ext_resource type="PackedScene" uid="uid://ckm34imjwqkc" path="res://Scenes/Paddle.tscn" id="2_3vtrg"]
+[ext_resource type="PackedScene" uid="uid://byi0wr1o2y1a7" path="res://Scenes/Ball.tscn" id="3_rk3ry"]
+[ext_resource type="Texture2D" uid="uid://c7c10nuy4ga2w" path="res://Textures/breakout_pieces.png" id="5_d5leu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5f5jr"]
+size = Vector2(957, 25.9999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bnqes"]
+size = Vector2(975, 31.9959)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_tg4h8")
+brickScenes = Array[PackedScene]([ExtResource("2_3e82o")])
+ballPrefab = ExtResource("3_rk3ry")
+
+[node name="Paddle" parent="." instance=ExtResource("2_3vtrg")]
+
+[node name="TopWall" type="Node2D" parent="."]
+position = Vector2(192, 0)
+
+[node name="TopWall" type="NinePatchRect" parent="TopWall"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -10.0
+offset_right = 500.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_d5leu")
+region_rect = Rect2(144, 175, 64, 20)
+patch_margin_left = 26
+patch_margin_right = 26
+
+[node name="TopWallBody" type="StaticBody2D" parent="TopWall/TopWall"]
+position = Vector2(500, 13.9968)
+metadata/TopWall = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall/TopWall/TopWallBody"]
+position = Vector2(0, -8.9968)
+shape = SubResource("RectangleShape2D_5f5jr")
+
+[node name="LeftWallNode" type="Node2D" parent="."]
+position = Vector2(0, 252)
+
+[node name="LeftWall" type="NinePatchRect" parent="LeftWallNode"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = 500.0
+offset_right = 990.0
+offset_bottom = 520.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+texture = ExtResource("5_d5leu")
+region_rect = Rect2(144, 175, 64, 20)
+patch_margin_left = 26
+patch_margin_right = 26
+
+[node name="LeftWallBody" type="StaticBody2D" parent="LeftWallNode/LeftWall"]
+position = Vector2(499, 0)
+metadata/Wall = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWallNode/LeftWall/LeftWallBody"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_bnqes")
+
+[node name="RightWallNode" type="Node2D" parent="."]
+position = Vector2(270, 252)
+
+[node name="RightWall" type="NinePatchRect" parent="RightWallNode"]
+offset_left = -10.0
+offset_top = 500.0
+offset_right = 990.0
+offset_bottom = 520.0
+rotation = -1.57079
+texture = ExtResource("5_d5leu")
+region_rect = Rect2(144, 175, 64, 20)
+patch_margin_left = 26
+patch_margin_right = 26
+
+[node name="RightWallBody" type="StaticBody2D" parent="RightWallNode/RightWall"]
+position = Vector2(500, 13.9968)
+metadata/Wall = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWallNode/RightWall/RightWallBody"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_5f5jr")
